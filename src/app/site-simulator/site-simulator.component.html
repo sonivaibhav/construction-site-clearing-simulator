@@ -1,1 +1,11 @@
-<p>site-simulator works!</p>
+<section class="main-container">
+  <table class="site-container">
+    <tbody>
+    <tr *ngFor="let rows of siteData">
+      <td *ngFor="let col of rows">
+        {{col}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
