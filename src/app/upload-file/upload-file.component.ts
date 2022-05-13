@@ -34,7 +34,7 @@ export class UploadFileComponent {
       const siteMap = this.validateSiteMapFile(fileContent);
 
       if (siteMap.isValid) {
-        this.router.navigate(['/site-simulator']).catch(console.error);
+        this.router.navigate(['/site-simulator'], {state: {data: fileContent}}).catch(console.error);
       } else {
         this.errorMsg(siteMap.errorMessage);
       }
