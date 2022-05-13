@@ -53,11 +53,47 @@ export class UploadFileComponent {
     } else {
       const fileContentRows = (fileContent as string).split("\n");
 
+      let length = 0;
+      fileContentRows.forEach((row: string, idx: number): void => {
+        const fileContentColumns = row.trim().split('');
+        if (isValid) {
+          if (length === 0 || length === fileContentColumns.length) {
+            const protectedTreeFound = this.isProtectedTreeFound(idx, fileContentColumns, errorMessage, isValid);
+            errorMessage = protectedTreeFound.errorMessage;
+            isValid = protectedTreeFound.isValid;
+
+            const validateCharacters = this.isValidChar(fileContentColumns, ["o", "r", "t", "T"]);
+            if (isValid && validateCharacters && validateCharacters.length > 0) {
+              errorMessage = `Validation error on line ${idx}, ${validateCharacters.join(',')} ${validateCharacters.length === 1 ? 'is not a valid character' : 'are not valid characters'}`;
+              isValid = false;
+            } else {
+              siteData[idx] = fileContentColumns;
+              length = siteData[idx].length;
+            }
+          } else {
+            errorMessage = `Validation error on line ${idx}, length is not matching. Each rows should have equal length`;
+            isValid = false;
+          }
+        }
+      });
       // TODO: remove console
       console.log(fileContentRows);
     }
 
     return {isValid, errorMessage, siteData};
+  }
+
+  private isProtectedTreeFound(idx: number, fileContentColumns: string[], errorMessage: string, isValid: boolean) {
+    // Protected tree can never be found on first cell
+    if (idx === 0 && fileContentColumns[0] === 'T') {
+      errorMessage = `Validation error on line ${idx} column 0, cell can not have protected tree tree`;
+      isValid = false;
+    }
+    return {errorMessage, isValid};
+  }
+
+  private isValidChar(cols: ReadonlyArray<string>, letters: ReadonlyArray<string>) {
+    return cols.filter(val => !letters.includes(val));
   }
 
   private validateFileExt(): boolean {
