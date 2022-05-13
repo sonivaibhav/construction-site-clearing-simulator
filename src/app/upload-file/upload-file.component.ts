@@ -10,7 +10,6 @@ interface ValidateSiteMap {
 }
 
 @Component({
-  selector: 'upload-file',
   templateUrl: './upload-file.component.html',
   styleUrls: ['./upload-file.component.scss']
 })
