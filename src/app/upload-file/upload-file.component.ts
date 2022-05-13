@@ -1,4 +1,5 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
+import {ToastrService} from "ngx-toastr";
 
 type FileContent = string | null | undefined | ArrayBuffer;
 
@@ -17,6 +18,9 @@ export class UploadFileComponent {
   public fileName: string | undefined;
   @ViewChild('fileUpload') private readonly fileUploadEl: ElementRef | undefined;
 
+  constructor(private readonly toastrService: ToastrService) {
+  }
+
   public selectSiteMap(): void {
     const file: File = this.fileUploadEl?.nativeElement.files[0];
     this.fileName = file.name;
@@ -30,9 +34,8 @@ export class UploadFileComponent {
 
       if (validate.isValid) {
         // TODO: User should navigate to next page if file upload is successful, add routing mechanism
-        console.log('File upload success', validate);
+        console.log('File upload success', validate.siteData);
       } else {
-        // TODO: add alert message or notification service to display error message on screen
         this.errorMsg(validate.errorMessage);
       }
     }
@@ -83,16 +86,16 @@ export class UploadFileComponent {
     return {isValid, errorMessage, siteData};
   }
 
-  private isProtectedTreeFound(idx: number, fileContentColumns: string[], errorMessage: string, isValid: boolean) {
+  private isProtectedTreeFound(idx: number, fileContentColumns: string[], errorMessage: string, isValid: boolean): { isValid: boolean, errorMessage: string } {
     // Protected tree can never be found on first cell
     if (idx === 0 && fileContentColumns[0] === 'T') {
-      errorMessage = `Validation error on line ${idx} column 0, cell can not have protected tree tree`;
+      errorMessage = `Validation error on line ${idx} column 0, first cell can not have protected tree`;
       isValid = false;
     }
     return {errorMessage, isValid};
   }
 
-  private isValidChar(cols: ReadonlyArray<string>, letters: ReadonlyArray<string>) {
+  private isValidChar(cols: ReadonlyArray<string>, letters: ReadonlyArray<string>): string[] {
     return cols.filter(val => !letters.includes(val));
   }
 
@@ -102,7 +105,7 @@ export class UploadFileComponent {
   }
 
   private errorMsg(message: string): void {
-    console.log(message);
+    this.toastrService.error(message, 'Error!');
   }
 
 }
