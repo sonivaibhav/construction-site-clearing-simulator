@@ -12,7 +12,7 @@ export class SiteSimulatorComponent implements OnInit {
     const site = this.router.getCurrentNavigation()?.extras.state;
 
     if (site) {
-      this.siteData = site['data'];
+      this.siteData = site['data'].split("\r\n").map((item: any) => item.split(''));
     }
   }
 
