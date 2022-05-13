@@ -1,5 +1,6 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 type FileContent = string | null | undefined | ArrayBuffer;
 
@@ -10,7 +11,6 @@ interface ValidateSiteMap {
 }
 
 @Component({
-  selector: 'upload-file',
   templateUrl: './upload-file.component.html',
   styleUrls: ['./upload-file.component.scss']
 })
@@ -18,7 +18,8 @@ export class UploadFileComponent {
   public fileName: string | undefined;
   @ViewChild('fileUpload') private readonly fileUploadEl: ElementRef | undefined;
 
-  constructor(private readonly toastrService: ToastrService) {
+  constructor(private readonly router: Router,
+              private readonly toastrService: ToastrService) {
   }
 
   public selectSiteMap(): void {
@@ -30,13 +31,12 @@ export class UploadFileComponent {
 
     fileReader.onloadend = (el: ProgressEvent<FileReader>) => {
       const fileContent = (el.target as FileReader).result;
-      const validate = this.validateSiteMapFile(fileContent);
+      const siteMap = this.validateSiteMapFile(fileContent);
 
-      if (validate.isValid) {
-        // TODO: User should navigate to next page if file upload is successful, add routing mechanism
-        console.log('File upload success', validate.siteData);
+      if (siteMap.isValid) {
+        this.router.navigate(['/site-simulator']).catch(console.error);
       } else {
-        this.errorMsg(validate.errorMessage);
+        this.errorMsg(siteMap.errorMessage);
       }
     }
 
