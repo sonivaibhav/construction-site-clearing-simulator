@@ -34,3 +34,9 @@ export const enum Direction {
   WEST = 'WEST',
   NORTH = 'NORTH'
 }
+
+export interface ExpenseReport {
+  quantity: number;
+  cost: number;
+  item: string;
+}

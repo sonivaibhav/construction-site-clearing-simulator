@@ -1,1 +1,9 @@
-<p>expense-report works!</p>
+<div>
+  {{commandHistory()}}
+</div>
+<div *ngFor="let row of rows()">
+  <div>{{row.item}}</div>
+  <div>{{row.quantity}}</div>
+  <div>{{row.cost}}</div>
+</div>
+<div>Total cost: {{finalCostForSiteClearing()}}</div>

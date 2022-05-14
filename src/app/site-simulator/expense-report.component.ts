@@ -1,4 +1,7 @@
+import {NgRedux} from '@angular-redux/store';
 import {Component} from '@angular/core';
+import {ConstructionSiteState, ExpenseReport, VehicleHistory} from '../app.interface';
+import {costs} from '../utils/constants';
 
 @Component({
   selector: 'expense-report',
@@ -6,5 +9,81 @@ import {Component} from '@angular/core';
   styleUrls: ['./expense-report.component.scss']
 })
 export class ExpenseReportComponent {
+  private readonly siteState: ConstructionSiteState;
 
+  constructor(private readonly ngRedux: NgRedux<ConstructionSiteState>) {
+    this.siteState = this.ngRedux.getState();
+  }
+
+  public finalCostForSiteClearing() {
+    return this.rows().reduce((a, b) => a + (b['cost'] || 0), 0);
+  }
+
+  public commandHistory(): string | undefined {
+    if (this.siteState.vehicleHistory.length <= 0) {
+      return;
+    }
+    let allCommands: string[] = [];
+    this.siteState.vehicleHistory.forEach((history: VehicleHistory) => {
+      allCommands.push(history.command);
+    })
+
+    return allCommands.join(', ');
+  }
+
+  public rows(): ExpenseReport[] {
+    return [
+      {
+        item: 'Communication overhead',
+        quantity: this.siteState.transactionalCost,
+        cost: this.siteState.transactionalCost * costs['transaction']
+      },
+      {
+        item: 'Fuel usage',
+        quantity: this.siteState.fuelUsage,
+        cost: this.siteState.fuelUsage * costs['fuelPerSq']
+      },
+      this.protectedTreeDamagesCost(),
+      this.countUnclearedSquares(),
+      this.calcDamageCost()
+    ];
+  }
+
+  private countUnclearedSquares(): ExpenseReport {
+    let unclearedCells: string[] = [];
+    this.siteState.site.forEach((row: string[]) => {
+      unclearedCells = unclearedCells.concat(row.filter((col: string) => {
+        return ['r', 't'].includes(col);
+      }))
+    });
+    return {
+      quantity: unclearedCells.length,
+      cost: unclearedCells.length * costs['unclearedPerSq'],
+      item: 'Uncleared squares'
+    }
+  }
+
+  private calcDamageCost(): ExpenseReport {
+    return {
+      quantity: this.siteState.bulldozer.damage,
+      cost: this.siteState.bulldozer.damage * costs['damage'],
+      item: 'Damage cost'
+    }
+  }
+
+  private protectedTreeDamagesCost(): ExpenseReport {
+    if (this.siteState.isProtectedTree) {
+      return {
+        quantity: 1,
+        cost: costs['protectedTreeDamage'],
+        item: 'Protected tree destroyed'
+      }
+    } else {
+      return {
+        quantity: 0,
+        cost: 0,
+        item: 'Protected tree destroyed'
+      }
+    }
+  }
 }
