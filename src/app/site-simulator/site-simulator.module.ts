@@ -1,8 +1,9 @@
-import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
 
-import {SiteSimulatorComponent} from "./site-simulator.component";
-import {SiteSimulatorRoutingModule} from "./site-simulator-routing.module";
+import {ExpenseReportComponent} from './expense-report.component';
+import {SiteSimulatorRoutingModule} from './site-simulator-routing.module';
+import {SiteSimulatorComponent} from './site-simulator.component';
 import {VehicleControlsComponent} from './vehicle-controls.component';
 
 @NgModule({
@@ -12,7 +13,8 @@ import {VehicleControlsComponent} from './vehicle-controls.component';
   ],
   declarations: [
     SiteSimulatorComponent,
-    VehicleControlsComponent
+    VehicleControlsComponent,
+    ExpenseReportComponent
   ]
 })
 export class SiteSimulatorModule {
