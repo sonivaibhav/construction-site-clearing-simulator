@@ -30,7 +30,7 @@ export class VehicleControlsComponent {
       const fuelConsumptionAndUpdateGrid = this.fuelConsumptionAndUpdateGrid(this.siteState.site, ifBulldozerIsOnSite.bulldozer, Number(value));
 
       // update location
-      this.ngRedux.dispatch(updateVehicleLocation(ifBulldozerIsOnSite.bulldozer, `advance ${args[1]}`));
+      this.ngRedux.dispatch(updateVehicleLocation(ifBulldozerIsOnSite.bulldozer, `Advance ${args[1]} square`));
       // update grid
       this.ngRedux.dispatch(updateSiteSimulator(fuelConsumptionAndUpdateGrid.site));
       // update fuel
@@ -38,7 +38,7 @@ export class VehicleControlsComponent {
 
     } else {
       // update location
-      this.ngRedux.dispatch(updateVehicleLocation(ifBulldozerIsOnSite.bulldozer, `advance ${args[1]}`));
+      this.ngRedux.dispatch(updateVehicleLocation(ifBulldozerIsOnSite.bulldozer, `Advance ${args[1]} square`));
       this.ngRedux.dispatch(vehicleError(ifBulldozerIsOnSite.error));
       if (ifBulldozerIsOnSite.isProtectedTree) {
         this.ngRedux.dispatch(protectedTreeFound(ifBulldozerIsOnSite.isProtectedTree));
@@ -57,7 +57,9 @@ export class VehicleControlsComponent {
   }
 
   public quitSimulation(): void {
-    console.log('quitSimulation');
+    this.ngRedux.dispatch(updateVehicleLocation(this.siteState.bulldozer, `quit`));
+    this.ngRedux.dispatch(vehicleError('The trainee presses the quit button.'));
+    console.log(this.ngRedux.getState());
   }
 
   private fuelConsumptionAndUpdateGrid = (site: string[][], bulldozer: Bulldozer, squarePosition: number): {
