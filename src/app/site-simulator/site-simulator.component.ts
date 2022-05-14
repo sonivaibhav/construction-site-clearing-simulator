@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {tableCells} from "../utils/constants";
 
 @Component({
   templateUrl: './site-simulator.component.html',
@@ -7,6 +8,11 @@ import {Router} from "@angular/router";
 })
 export class SiteSimulatorComponent implements OnInit {
   public siteData: ReadonlyArray<string[]> | undefined;
+  public tableCells: {
+    [key: string]: {
+      svg: string;
+    }
+  } = tableCells
 
   constructor(private readonly router: Router,) {
     const site = this.router.getCurrentNavigation()?.extras.state;

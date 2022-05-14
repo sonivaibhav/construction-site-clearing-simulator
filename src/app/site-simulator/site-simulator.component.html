@@ -2,8 +2,8 @@
   <table class="site-container">
     <tbody>
     <tr *ngFor="let rows of siteData">
-      <td *ngFor="let col of rows">
-        {{col}}
+      <td *ngFor="let col of rows"
+          [ngStyle]="{'background-image': 'url(assets/svgs/'+ tableCells[col].svg+')'}">
       </td>
     </tr>
     </tbody>
