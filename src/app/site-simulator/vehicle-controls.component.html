@@ -1,0 +1,27 @@
+<section class="vehicle-control-container">
+  <h3 class="header">Vehicle Controls</h3>
+  <div class="controls-container">
+    <div class="input-control">
+      <div class="button-control">
+        <button type="button" aria-label="Advance one square" (click)="advanceVehicle()">
+          Advance
+        </button>
+      </div>
+      <div class="button-control">
+        <button type="button" aria-label="Move to left" (click)="turnVehicleLeft()">
+          Left
+        </button>
+      </div>
+      <div class="button-control">
+        <button type="button" aria-label="Move to right" (click)="turnVehicleRight()">
+          Right
+        </button>
+      </div>
+      <div class="button-control" (click)="quitSimulation()">
+        <button type="button" aria-label="Quit Simulation">
+          Quit
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
