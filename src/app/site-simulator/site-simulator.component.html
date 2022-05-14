@@ -1,4 +1,4 @@
-<section class="main-container">
+<section class="main-container" *ngIf="!simulatorEnded; else expenseReportTemplate">
   <table class="site-container">
     <tbody>
     <div *ngIf="bulldozer.xPos === -1 && bulldozer.yPos === -1" class="bulldozer"></div>
@@ -14,5 +14,7 @@
     </tbody>
   </table>
   <vehicle-controls></vehicle-controls>
-  <expense-report></expense-report>
 </section>
+<ng-template #expenseReportTemplate>
+  <expense-report *ngIf="simulatorEnded"></expense-report>
+</ng-template>

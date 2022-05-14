@@ -33,4 +33,8 @@ export class SiteSimulatorComponent {
   public get bulldozer(): Bulldozer {
     return this.ngRedux.getState().bulldozer;
   }
+
+  public get simulatorEnded(): string | null {
+    return this.ngRedux.getState().error;
+  }
 }

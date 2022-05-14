@@ -1,5 +1,7 @@
 import {NgRedux} from '@angular-redux/store';
 import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+
 import {ConstructionSiteState, ExpenseReport, VehicleHistory} from '../app.interface';
 import {costs} from '../utils/constants';
 
@@ -11,7 +13,8 @@ import {costs} from '../utils/constants';
 export class ExpenseReportComponent {
   private readonly siteState: ConstructionSiteState;
 
-  constructor(private readonly ngRedux: NgRedux<ConstructionSiteState>) {
+  constructor(private readonly router: Router,
+              private readonly ngRedux: NgRedux<ConstructionSiteState>) {
     this.siteState = this.ngRedux.getState();
   }
 
@@ -47,6 +50,10 @@ export class ExpenseReportComponent {
       this.countUnclearedSquares(),
       this.calcDamageCost()
     ];
+  }
+
+  public restartSimulator(): void {
+    this.router.navigateByUrl('/').catch(console.error);
   }
 
   private countUnclearedSquares(): ExpenseReport {
