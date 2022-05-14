@@ -1,7 +1,7 @@
 <section class="main-container">
   <table class="site-container">
     <tbody>
-    <tr *ngFor="let rows of siteData">
+    <tr *ngFor="let rows of site$ | async">
       <td *ngFor="let col of rows"
           [ngStyle]="{'background-image': 'url(assets/svgs/'+ tableCells[col].svg+')'}">
       </td>

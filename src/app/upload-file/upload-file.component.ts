@@ -1,6 +1,9 @@
+import {NgRedux} from '@angular-redux/store';
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {ToastrService} from "ngx-toastr";
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
+import {ConstructionSiteState} from '../app.interface';
+import {createSiteSimulator} from '../store/simulator.actions';
 
 type FileContent = string | null | undefined | ArrayBuffer;
 
@@ -19,6 +22,7 @@ export class UploadFileComponent {
   @ViewChild('fileUpload') private readonly fileUploadEl: ElementRef | undefined;
 
   constructor(private readonly router: Router,
+              private ngRedux: NgRedux<ConstructionSiteState>,
               private readonly toastrService: ToastrService) {
   }
 
@@ -35,7 +39,8 @@ export class UploadFileComponent {
       const siteMap = this.validateSiteMapFile(fileContent, fileType);
 
       if (siteMap.isValid) {
-        this.router.navigate(['/site-simulator'], {state: {data: fileContent}}).catch(console.error);
+        this.ngRedux.dispatch(createSiteSimulator(siteMap.siteData));
+        this.router.navigate(['/site-simulator']).catch(console.error);
       } else {
         this.errorMsg(siteMap.errorMessage);
       }
@@ -53,9 +58,9 @@ export class UploadFileComponent {
 
     if (!(fileType === 'txt') || !fileContent) {
       isValid = false;
-      errorMessage = "Invalid file format, Please select text file with valid content";
+      errorMessage = 'Invalid file format, Please select text file with valid content';
     } else {
-      const fileContentRows = (fileContent as string).split("\n");
+      const fileContentRows = (fileContent as string).split('\n');
 
       let length = 0;
       fileContentRows.forEach((row: string, idx: number): void => {
@@ -66,7 +71,7 @@ export class UploadFileComponent {
             errorMessage = protectedTreeFound.errorMessage;
             isValid = protectedTreeFound.isValid;
 
-            const validateCharacters = this.isValidChar(fileContentColumns, ["o", "r", "t", "T"]);
+            const validateCharacters = this.isValidChar(fileContentColumns, ['o', 'r', 't', 'T']);
             if (isValid && validateCharacters && validateCharacters.length > 0) {
               errorMessage = `Validation error on line ${idx}, ${validateCharacters.join(',')} ${validateCharacters.length === 1 ? 'is not a valid character' : 'are not valid characters'}`;
               isValid = false;

@@ -1,30 +1,29 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {tableCells} from "../utils/constants";
+import {NgRedux, select} from '@angular-redux/store';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {ConstructionSiteState} from '../app.interface';
+
+import {tableCells} from '../utils/constants';
 
 @Component({
   templateUrl: './site-simulator.component.html',
   styleUrls: ['./site-simulator.component.scss']
 })
-export class SiteSimulatorComponent implements OnInit {
-  public siteData: ReadonlyArray<string[]> | undefined;
-  public tableCells: {
-    [key: string]: {
-      svg: string;
-    }
-  } = tableCells
+export class SiteSimulatorComponent {
+  public tableCells: { [key: string]: { svg: string } } = tableCells
 
-  constructor(private readonly router: Router,) {
-    const site = this.router.getCurrentNavigation()?.extras.state;
+  @select('site') site$: Observable<string[]> | undefined;
 
-    if (site) {
-      this.siteData = site['data'].split("\r\n").map((item: any) => item.split(''));
-    }
-  }
+  constructor(private readonly router: Router,
+              private ngRedux: NgRedux<ConstructionSiteState>) {
+    this.site$?.subscribe(val => {
+      if (val.length === 0) {
+        this.router.navigateByUrl('/').catch(console.error);
+      }
+    });
 
-  public ngOnInit(): void {
-    if (!this.siteData) {
-      this.router.navigate(['/']).catch(console.log);
-    }
+    // TODO: Remove console.log
+    console.log(this.ngRedux.getState());
   }
 }
