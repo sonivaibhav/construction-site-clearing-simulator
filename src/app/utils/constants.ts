@@ -46,3 +46,32 @@ export const costs: { [key: string]: number } = {
   protectedTreeDamage: 10,
   damage: 2
 }
+
+export const vehicleDirection: {
+  [key: string]: {
+    angle: number;
+    scaleX: number;
+    scaleY: number;
+  }
+} = {
+  'NORTH': {
+    angle: 90,
+    scaleX: -1,
+    scaleY: -1
+  },
+  'SOUTH': {
+    angle: -90,
+    scaleX: -1,
+    scaleY: -1
+  },
+  'EAST': {
+    angle: 0,
+    scaleX: 1,
+    scaleY: 1
+  },
+  'WEST': {
+    angle: 180,
+    scaleX: 1,
+    scaleY: -1
+  }
+};

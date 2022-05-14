@@ -7,6 +7,14 @@
 
     tbody {
       position: relative;
+
+      .bulldozer {
+        position: absolute;
+        left: -4rem;
+        width: 4rem;
+        height: 4rem;
+        background-image: url('./../../assets/svgs/bulldozer.svg');
+      }
     }
 
     td {

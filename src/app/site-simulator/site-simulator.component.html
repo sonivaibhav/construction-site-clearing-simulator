@@ -1,9 +1,14 @@
 <section class="main-container">
   <table class="site-container">
     <tbody>
-    <tr *ngFor="let rows of site$ | async">
-      <td *ngFor="let col of rows"
-          [ngStyle]="{'background-image': 'url(assets/svgs/'+ tableCells[col].svg+')'}">
+    <div *ngIf="bulldozer.xPos === -1 && bulldozer.yPos === -1" class="bulldozer"></div>
+    <tr *ngFor="let rows of site$ | async; let rowIndex= index;">
+      <!--TODO: Extract style logic into typescript-->
+      <td *ngFor="let col of rows; let colIndex= index;"
+          [ngStyle]="{
+          'background-image': (bulldozer.xPos === colIndex && bulldozer.yPos === rowIndex) ? 'url(assets/svgs/bulldozer.svg)' : 'url(assets/svgs/'+ tableCells[col].svg+')',
+          'transform': (bulldozer.xPos === colIndex && bulldozer.yPos === rowIndex) ? 'scaleX(' + vehicleDirection[bulldozer.facing].scaleX+ ') scaleY(' + vehicleDirection[bulldozer.facing].scaleY+ ') rotate(' + vehicleDirection[bulldozer.facing].angle + 'deg)' : ''
+          }">
       </td>
     </tr>
     </tbody>

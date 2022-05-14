@@ -22,7 +22,7 @@ export class UploadFileComponent {
   @ViewChild('fileUpload') private readonly fileUploadEl: ElementRef | undefined;
 
   constructor(private readonly router: Router,
-              private ngRedux: NgRedux<ConstructionSiteState>,
+              private readonly ngRedux: NgRedux<ConstructionSiteState>,
               private readonly toastrService: ToastrService) {
   }
 

@@ -18,7 +18,7 @@ import {tableCells} from '../utils/constants';
 export class VehicleControlsComponent {
   private readonly siteState: ConstructionSiteState;
 
-  constructor(private ngRedux: NgRedux<ConstructionSiteState>) {
+  constructor(private readonly ngRedux: NgRedux<ConstructionSiteState>) {
     this.siteState = this.ngRedux.getState();
   }
 
