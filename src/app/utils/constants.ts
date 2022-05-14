@@ -2,20 +2,25 @@ import {ConstructionSiteState} from '../app.interface';
 
 export const tableCells: {
   [key: string]: {
+    fuelUsage: number;
     svg: string;
   }
 } = {
   o: {
-    svg: "plain-land.svg"
+    fuelUsage: 1,
+    svg: 'plain-land.svg'
   },
   r: {
-    svg: "rocky-land.svg"
+    fuelUsage: 2,
+    svg: 'rocky-land.svg'
   },
   t: {
-    svg: "removable-trees.svg"
+    fuelUsage: 2,
+    svg: 'removable-trees.svg'
   },
   T: {
-    svg: "protected-tree.svg"
+    fuelUsage: 0,
+    svg: 'protected-tree.svg'
   }
 };
 
@@ -24,7 +29,7 @@ export const initialState: ConstructionSiteState = {
   bulldozer: {
     xPos: -1,
     yPos: -1,
-    facing: "EAST",
+    facing: 'EAST',
     damage: 0
   },
   fuelUsage: 0,
@@ -33,3 +38,11 @@ export const initialState: ConstructionSiteState = {
   vehicleHistory: [],
   isProtectedTree: false
 };
+
+export const costs: { [key: string]: number } = {
+  transaction: 1,
+  fuelPerSq: 1,
+  unclearedPerSq: 3,
+  protectedTreeDamage: 10,
+  damage: 2
+}

@@ -8,6 +8,14 @@ export interface ConstructionSiteState {
   vehicleHistory: VehicleHistory[];
 }
 
+export interface ValidateBulldozerPosition {
+  valid: Boolean;
+  bulldozer: Bulldozer;
+  error: string | null;
+  end: boolean;
+  isProtectedTree: boolean;
+}
+
 export interface Bulldozer {
   xPos: number;
   yPos: number;
