@@ -21,7 +21,8 @@ export const updateSiteSimulator = (site: string[][]) => (
 
 // Update vehicle location
 export const updateVehicleLocation = (bulldozer: Bulldozer, command: string) => (
-  {type: SimulatorActions.UPDATE_VEHICLE_LOCATION, payload: {bulldozer, command}});
+  {type: SimulatorActions.UPDATE_VEHICLE_LOCATION, payload: {bulldozer, command}}
+);
 
 // protected tree present on cell
 export const protectedTreeFound = (isProtectedTree: boolean) => (

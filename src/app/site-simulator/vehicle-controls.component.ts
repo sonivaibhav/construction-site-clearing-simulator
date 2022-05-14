@@ -1,6 +1,6 @@
 import {NgRedux} from '@angular-redux/store';
 import {Component} from '@angular/core';
-import {Bulldozer, ConstructionSiteState, ValidateBulldozerPosition} from '../app.interface';
+import {Bulldozer, ConstructionSiteState, Direction, ValidateBulldozerPosition} from '../app.interface';
 import {
   protectedTreeFound,
   updateFuelUsage,
@@ -34,7 +34,7 @@ export class VehicleControlsComponent {
       // update grid
       this.ngRedux.dispatch(updateSiteSimulator(fuelConsumptionAndUpdateGrid.site));
       // update fuel
-      this.ngRedux.dispatch(updateFuelUsage(fuelConsumptionAndUpdateGrid.fuel));
+      this.ngRedux.dispatch(updateFuelUsage(fuelConsumptionAndUpdateGrid.fuelUsage));
 
     } else {
       // update location
@@ -49,29 +49,62 @@ export class VehicleControlsComponent {
   }
 
   public turnVehicleLeft(): void {
-    console.log('turnVehicleLeft');
+    switch (this.siteState.bulldozer.facing) {
+      case Direction.EAST:
+        this.siteState.bulldozer.facing = Direction.NORTH;
+        break;
+      case Direction.NORTH:
+        this.siteState.bulldozer.facing = Direction.WEST;
+        break;
+      case Direction.WEST:
+        this.siteState.bulldozer.facing = Direction.SOUTH;
+        break;
+      case Direction.SOUTH:
+        this.siteState.bulldozer.facing = Direction.EAST;
+        break;
+      default:
+        this.siteState.bulldozer.facing = Direction.EAST;
+    }
+
+    this.ngRedux.dispatch(updateVehicleLocation({...this.siteState.bulldozer}, 'Left turn'));
   }
 
   public turnVehicleRight(): void {
-    console.log('turnVehicleRight');
+    switch (this.siteState.bulldozer.facing) {
+      case Direction.EAST:
+        this.siteState.bulldozer.facing = Direction.SOUTH;
+        break;
+      case Direction.SOUTH:
+        this.siteState.bulldozer.facing = Direction.WEST;
+        break;
+      case Direction.WEST:
+        this.siteState.bulldozer.facing = Direction.NORTH;
+        break;
+      case Direction.NORTH:
+        this.siteState.bulldozer.facing = Direction.EAST;
+        break;
+      default:
+        this.siteState.bulldozer.facing = Direction.EAST;
+    }
+    this.ngRedux.dispatch(updateVehicleLocation({...this.siteState.bulldozer}, 'Right turn'));
   }
 
   public quitSimulation(): void {
-    this.ngRedux.dispatch(updateVehicleLocation(this.siteState.bulldozer, `quit`));
+    this.ngRedux.dispatch(updateVehicleLocation(this.siteState.bulldozer, 'Quit'));
     this.ngRedux.dispatch(vehicleError('The trainee presses the quit button.'));
     console.log(this.ngRedux.getState());
   }
 
   private fuelConsumptionAndUpdateGrid = (site: string[][], bulldozer: Bulldozer, squarePosition: number): {
-    fuel: number;
+    fuelUsage: number;
     site: string[][]
   } => {
     let transaction = {
-      fuel: squarePosition - 1, // exclude cell to be moved to avoid doubling
+      fuelUsage: squarePosition - 1, // exclude cell to be moved to avoid doubling
       site: [...site]
     };
 
-    transaction.fuel += tableCells[site[bulldozer.yPos][bulldozer.xPos]].fuelUsage;
+    transaction.fuelUsage += tableCells[site[bulldozer.yPos][bulldozer.xPos]].fuelUsage;
     if (site[bulldozer.yPos][bulldozer.xPos] === 'r') {
       transaction.site[bulldozer.yPos][bulldozer.xPos] = 'o';
     } else if (site[bulldozer.yPos][bulldozer.xPos] === 't') {
@@ -86,17 +119,17 @@ export class VehicleControlsComponent {
     const gridSize = {x: grid[0].length, y: grid.length};
 
     let gridsBetween: string[] = [];
-    if (bulldozerPosition.facing === 'EAST') {
+    if (bulldozerPosition.facing === Direction.EAST) {
       bulldozerPosition.yPos = bulldozerPosition.yPos === -1 ? bulldozerPosition.yPos + 1 : bulldozerPosition.yPos;
       bulldozerPosition.xPos = bulldozerPosition.xPos + squarePosition;
       gridsBetween = this.simulatePassingThrough(grid, prevLocation.xPos, bulldozerPosition.xPos, 'x', bulldozerPosition.yPos);
-    } else if (bulldozerPosition.facing === 'WEST') {
+    } else if (bulldozerPosition.facing === Direction.WEST) {
       bulldozerPosition.xPos = bulldozerPosition.xPos - squarePosition;
       gridsBetween = this.simulatePassingThrough(grid, prevLocation.xPos, bulldozerPosition.xPos, 'x', bulldozerPosition.yPos);
-    } else if (bulldozerPosition.facing === 'NORTH') {
+    } else if (bulldozerPosition.facing === Direction.NORTH) {
       bulldozerPosition.yPos = bulldozerPosition.yPos - squarePosition;
       gridsBetween = this.simulatePassingThrough(grid, prevLocation.yPos, bulldozerPosition.yPos, 'y', bulldozerPosition.xPos);
-    } else if (bulldozerPosition.facing === 'SOUTH') {
+    } else if (bulldozerPosition.facing === Direction.SOUTH) {
       bulldozerPosition.yPos = bulldozerPosition.yPos + squarePosition;
       gridsBetween = this.simulatePassingThrough(grid, prevLocation.yPos, bulldozerPosition.yPos, 'y', bulldozerPosition.xPos);
     }

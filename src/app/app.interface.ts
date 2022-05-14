@@ -27,3 +27,10 @@ export interface VehicleHistory {
   bulldozer: Bulldozer,
   command: string
 }
+
+export const enum Direction {
+  EAST = 'EAST',
+  SOUTH = 'SOUTH',
+  WEST = 'WEST',
+  NORTH = 'NORTH'
+}
