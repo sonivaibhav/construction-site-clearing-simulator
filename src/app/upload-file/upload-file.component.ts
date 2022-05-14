@@ -31,7 +31,8 @@ export class UploadFileComponent {
 
     fileReader.onloadend = (el: ProgressEvent<FileReader>) => {
       const fileContent = (el.target as FileReader).result;
-      const siteMap = this.validateSiteMapFile(fileContent);
+      const fileType = this.fileUploadEl?.nativeElement.files[0].name.split('.').pop();
+      const siteMap = this.validateSiteMapFile(fileContent, fileType);
 
       if (siteMap.isValid) {
         this.router.navigate(['/site-simulator'], {state: {data: fileContent}}).catch(console.error);
@@ -45,12 +46,12 @@ export class UploadFileComponent {
     }
   }
 
-  private validateSiteMapFile(fileContent: FileContent): ValidateSiteMap {
+  private validateSiteMapFile(fileContent: FileContent, fileType: string): ValidateSiteMap {
     let isValid = true;
     let errorMessage = '';
     const siteData: string[][] = [];
 
-    if (!this.validateFileExt() || !fileContent) {
+    if (!(fileType === 'txt') || !fileContent) {
       isValid = false;
       errorMessage = "Invalid file format, Please select text file with valid content";
     } else {
@@ -99,13 +100,7 @@ export class UploadFileComponent {
     return cols.filter(val => !letters.includes(val));
   }
 
-  private validateFileExt(): boolean {
-    const file: File = this.fileUploadEl?.nativeElement.files[0];
-    return file.type === 'text/plain';
-  }
-
   private errorMsg(message: string): void {
     this.toastrService.error(message, 'Error!');
   }
-
 }

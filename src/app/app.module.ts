@@ -22,7 +22,6 @@ import {AppRoutingModule} from "./app-routing.module";
       preventDuplicates: true,
     })
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
