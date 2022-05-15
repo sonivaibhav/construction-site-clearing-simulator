@@ -1,11 +1,6 @@
-import {ConstructionSiteState} from '../app.interface';
+import {ConstructionSiteState, TableCell, VehicleDirection} from '../app.interface';
 
-export const tableCells: {
-  [key: string]: {
-    fuelUsage: number;
-    svg: string;
-  }
-} = {
+export const tableCells: TableCell = {
   o: {
     fuelUsage: 1,
     svg: 'plain-land.svg'
@@ -47,13 +42,7 @@ export const costs: { [key: string]: number } = {
   damage: 2
 }
 
-export const vehicleDirection: {
-  [key: string]: {
-    angle: number;
-    scaleX: number;
-    scaleY: number;
-  }
-} = {
+export const vehicleDirection: VehicleDirection = {
   'NORTH': {
     angle: 90,
     scaleX: -1,

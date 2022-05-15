@@ -1,5 +1,6 @@
 import {NgRedux} from '@angular-redux/store';
 import {Component} from '@angular/core';
+
 import {Bulldozer, ConstructionSiteState, Direction, ValidateBulldozerPosition} from '../app.interface';
 import {
   protectedTreeFound,
@@ -92,7 +93,6 @@ export class VehicleControlsComponent {
   public quitSimulation(): void {
     this.ngRedux.dispatch(updateVehicleLocation(this.siteState.bulldozer, 'Quit'));
     this.ngRedux.dispatch(vehicleError('The trainee presses the quit button.'));
-    console.log(this.ngRedux.getState());
   }
 
   private fuelConsumptionAndUpdateGrid = (site: string[][], bulldozer: Bulldozer, squarePosition: number): {

@@ -1,13 +1,4 @@
-import {Bulldozer} from '../app.interface';
-
-export const enum SimulatorActions {
-  CREATE_SITE = 'CREATE_SITE',
-  UPDATE_SITE = 'UPDATE_SITE',
-  UPDATE_FUEL_USAGE = 'UPDATE_FUEL_USAGE',
-  UPDATE_VEHICLE_LOCATION = 'UPDATE_VEHICLE_LOCATION',
-  UPDATE_PROTECTED_TREE_FOUND = 'UPDATE_PROTECTED_TREE_FOUND',
-  ERROR = 'ERROR'
-}
+import {Bulldozer, SimulatorActions} from '../app.interface';
 
 // Create sire simulator
 export const createSiteSimulator = (data: string[][]) => (

@@ -2,16 +2,9 @@ import {NgRedux} from '@angular-redux/store';
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {ConstructionSiteState} from '../app.interface';
+
+import {ConstructionSiteState, FileContent, ValidateSiteMap} from '../app.interface';
 import {createSiteSimulator} from '../store/simulator.actions';
-
-type FileContent = string | null | undefined | ArrayBuffer;
-
-interface ValidateSiteMap {
-  isValid: boolean;
-  errorMessage: string;
-  siteData: string[][];
-}
 
 @Component({
   templateUrl: './upload-file.component.html',
@@ -85,8 +78,6 @@ export class UploadFileComponent {
           }
         }
       });
-      // TODO: remove console
-      console.log(fileContentRows);
     }
 
     return {isValid, errorMessage, siteData};

@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SiteSimulatorComponent} from "./site-simulator.component";
+
+import {SiteSimulatorComponent} from './site-simulator.component';
 
 
 const routes: Routes = [

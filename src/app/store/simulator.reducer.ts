@@ -1,6 +1,5 @@
-import {ConstructionSiteState} from '../app.interface';
+import {ConstructionSiteState, SimulatorActions} from '../app.interface';
 import {costs} from '../utils/constants';
-import {SimulatorActions} from './simulator.actions';
 
 export const simulatorReducer = (siteState: ConstructionSiteState, simulatorAction: { type: string; payload: any }): ConstructionSiteState => {
   switch (simulatorAction.type) {

@@ -3,8 +3,8 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {AppRoutingModule} from './app-routing.module';
 
+import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ConstructionSiteState} from './app.interface';
 import {NavHeaderComponent} from './nav-header/nav-header.component';
@@ -24,7 +24,7 @@ import {initialState} from './utils/constants';
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-top-right',
-      preventDuplicates: true,
+      preventDuplicates: true
     })
   ],
   bootstrap: [AppComponent]

@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 
-import {Bulldozer, ConstructionSiteState} from '../app.interface';
+import {Bulldozer, ConstructionSiteState, TableCell, VehicleDirection} from '../app.interface';
 import {tableCells, vehicleDirection} from '../utils/constants';
 
 @Component({
@@ -11,14 +11,8 @@ import {tableCells, vehicleDirection} from '../utils/constants';
   styleUrls: ['./site-simulator.component.scss']
 })
 export class SiteSimulatorComponent {
-  public readonly tableCells: { [key: string]: { svg: string } } = tableCells;
-  public readonly vehicleDirection: {
-    [key: string]: {
-      angle: number;
-      scaleX: number;
-      scaleY: number;
-    }
-  } = vehicleDirection;
+  public readonly tableCells: TableCell = tableCells;
+  public readonly vehicleDirection: VehicleDirection = vehicleDirection;
   @select('site') public readonly site$: Observable<string[]> | undefined;
 
   constructor(private readonly router: Router,
