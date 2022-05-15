@@ -36,6 +36,9 @@ export class UploadFileComponent {
         this.router.navigate(['/site-simulator']).catch(console.error);
       } else {
         this.errorMsg(siteMap.errorMessage);
+        if (this.fileUploadEl) {
+          this.fileUploadEl.nativeElement.value = null;
+        }
       }
     }
 
