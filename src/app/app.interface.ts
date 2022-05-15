@@ -66,6 +66,7 @@ export const enum Direction {
 
 export const enum SimulatorActions {
   CREATE_SITE = 'CREATE_SITE',
+  DESTROY_SITE = 'DESTROY_SITE',
   UPDATE_SITE = 'UPDATE_SITE',
   UPDATE_FUEL_USAGE = 'UPDATE_FUEL_USAGE',
   UPDATE_VEHICLE_LOCATION = 'UPDATE_VEHICLE_LOCATION',

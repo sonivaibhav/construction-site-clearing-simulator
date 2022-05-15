@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 
 import {ConstructionSiteState, ExpenseReport, VehicleHistory} from '../app.interface';
+import {destroySiteSimulator} from '../store/simulator.actions';
 import {costs} from '../utils/constants';
 
 @Component({
@@ -57,6 +58,7 @@ export class ExpenseReportComponent {
 
   public restartSimulator(): void {
     this.router.navigateByUrl('/').catch(console.error);
+    this.ngRedux.dispatch(destroySiteSimulator('destroy'));
   }
 
   private countUnclearedSquares(): ExpenseReport {

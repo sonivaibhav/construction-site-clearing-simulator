@@ -5,6 +5,10 @@ export const createSiteSimulator = (data: string[][]) => (
   {type: SimulatorActions.CREATE_SITE, payload: data}
 );
 
+export const destroySiteSimulator = (data: string) => (
+  {type: SimulatorActions.DESTROY_SITE, value: data}
+);
+
 // Update site simulator
 export const updateSiteSimulator = (site: string[][]) => (
   {type: SimulatorActions.UPDATE_SITE, payload: site}
