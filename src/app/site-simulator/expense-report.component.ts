@@ -31,7 +31,7 @@ export class ExpenseReportComponent {
       allCommands.push(history.command);
     })
 
-    return allCommands.join(', ');
+    return allCommands.join(' --> ');
   }
 
   public rows(): ExpenseReport[] {

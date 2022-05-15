@@ -1,11 +1,41 @@
-<div>
-  {{commandHistory()}}
-</div>
-<div *ngFor="let row of rows()">
-  <div>{{row.item}}</div>
-  <div>{{row.quantity}}</div>
-  <div>{{row.cost}}</div>
-</div>
-<div>Total cost: {{finalCostForSiteClearing()}}</div>
-
-<button (click)="restartSimulator()">Restart simulator</button>
+<section class="expense-report-container">
+  <div class="card-wrapper">
+    <div>
+      <div class="card-header">
+        <!--TODO: Replace below svg with some relevant svg icon-->
+        <img alt="Logo" src="assets/svgs/site-logo.svg" width="40"/>
+        <span>Total cost</span>
+      </div>
+      <div class="card-body">
+        <div class="col">
+          <div class="number">{{finalCostForSiteClearing()}}</div>
+          <div class="label">Quantity</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-wrapper" *ngFor="let row of rows()">
+    <div>
+      <div class="card-header">
+        <!--TODO: Replace below svg with some relevant svg icon-->
+        <img alt="site Logo" src="assets/svgs/site-logo.svg" width="40"/>
+        <span>{{row.item}}</span>
+      </div>
+      <div class="card-body">
+        <div class="col">
+          <div class="number">{{row.quantity}}</div>
+          <div class="label">Quantity</div>
+        </div>
+        <div class="divider"></div>
+        <div class="col">
+          <div class="number">{{row.cost}}</div>
+          <div class="label">cost</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="command-history">
+  <div class="header">List of command executed in sequence</div>
+  <div class="content">{{commandHistory()}}</div>
+</section>
