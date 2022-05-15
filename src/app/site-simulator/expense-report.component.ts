@@ -1,6 +1,7 @@
 import {NgRedux} from '@angular-redux/store';
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 import {ConstructionSiteState, ExpenseReport, VehicleHistory} from '../app.interface';
 import {costs} from '../utils/constants';
@@ -14,8 +15,10 @@ export class ExpenseReportComponent {
   private readonly siteState: ConstructionSiteState;
 
   constructor(private readonly router: Router,
+              private readonly toastrService: ToastrService,
               private readonly ngRedux: NgRedux<ConstructionSiteState>) {
     this.siteState = this.ngRedux.getState();
+    this.toastrService.error(this.siteState.error, 'Simulation Ended!!');
   }
 
   public finalCostForSiteClearing() {

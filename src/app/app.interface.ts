@@ -1,6 +1,6 @@
 export interface ConstructionSiteState {
   bulldozer: Bulldozer;
-  error: string | null;
+  error: string;
   fuelUsage: number;
   isProtectedTree: boolean;
   site: string[][];

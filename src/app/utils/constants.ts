@@ -29,7 +29,7 @@ export const initialState: ConstructionSiteState = {
   },
   fuelUsage: 0,
   transactionalCost: 0,
-  error: null,
+  error: '',
   vehicleHistory: [],
   isProtectedTree: false
 };
