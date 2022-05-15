@@ -1,10 +1,12 @@
+@use "./../../vars";
+
 .toolbar {
   font-weight: 600;
   display: flex;
   align-items: center;
   height: 60px;
   color: white;
-  background-color: #1976d2;
+  background-color: vars.$primary-color;
 
   img {
     margin: 0 1rem;

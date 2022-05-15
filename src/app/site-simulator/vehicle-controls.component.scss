@@ -1,3 +1,5 @@
+@use "./../../vars";
+
 .vehicle-control-container {
   display: flex;
   align-items: center;
@@ -8,15 +10,15 @@
     margin: 1rem;
     padding: 1rem;
     text-align: center;
-    border: 1px solid #1976d2;
+    border: 1px solid vars.$primary-color;
     border-radius: 0.5rem;
-    background-color: #eff6f6;
+    background-color: vars.$ternary-color;
 
     .header {
       font-weight: 600;
       margin: 0;
       padding-bottom: 1rem;
-      color: #1976d2;
+      color: vars.$primary-color;
     }
 
     .button-control {
@@ -26,8 +28,8 @@
 
       button {
         padding: 0.5rem 1rem;
-        color: #1976d2;
-        border: 1px solid #1976d2;
+        color: vars.$primary-color;
+        border: 1px solid vars.$primary-color;
         border-radius: 0.3rem;
         background: transparent;
       }
