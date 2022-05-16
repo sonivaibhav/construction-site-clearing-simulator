@@ -56,7 +56,7 @@ describes a site that is 10 squares wide and 5 squares deep: ootooooooo oooooooT
 
   2. [SiteSimulatorModule](src/app/site-simulator/site-simulator.module.ts)
 
-     - Site simulator module displays simulated construction site map on screen which is rectangular shape, described as
+     - Site simulator module with route `/site-simulator` displays simulated construction site map on screen which is rectangular shape, described as
        a grid of square blocks each with equal size.
      - This module is responsible for below operations:
        1. Replacing input characters ('o', 'r', 't', 'T') with respective svg representation.
