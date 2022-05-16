@@ -96,11 +96,11 @@ describes a site that is 10 squares wide and 5 squares deep: ootooooooo oooooooT
 
 # Site map input data and visual representation
 
-- ![img_1.png](img_1.png) => Plain land (0) is be represented with (./plain-land.svg)
-- ![img_2.png](img_2.png) => Rocky land (r) is be represented with (./rocky-land.svg)
-- ![img_4.png](img_4.png) => Removable tree (t) is be represented with (./removable-trees.svg)
-- ![img_3.png](img_3.png) => Protected tree (T) is be represented with (./protected-tree.svg)
-- ![img_5.png](img_5.png) => Vehicle is be represented with (./bulldozer.svg)
+- ![img_1.png](img_1.png) => Plain land (0) is represented with (./plain-land.svg)
+- ![img_2.png](img_2.png) => Rocky land (r) is represented with (./rocky-land.svg)
+- ![img_4.png](img_4.png) => Removable tree (t) is represented with (./removable-trees.svg)
+- ![img_3.png](img_3.png) => Protected tree (T) is represented with (./protected-tree.svg)
+- ![img_5.png](img_5.png) => Vehicle is represented with (./bulldozer.svg)
 
 # Control buttons
 
