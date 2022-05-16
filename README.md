@@ -2,6 +2,8 @@
 
 ### Demo on how to use site clearing simulator
 
+![](site clearing simulation full demo.gif)
+
 # Application Requirements
 
 ### Rules
