@@ -1,3 +1,4 @@
+import {MockNgRedux, NgReduxTestingModule} from '@angular-redux/store/testing';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {VehicleControlsComponent} from './vehicle-controls.component';
@@ -8,7 +9,9 @@ describe('VehicleControlsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [VehicleControlsComponent]
+      imports: [NgReduxTestingModule],
+      declarations: [VehicleControlsComponent],
+      providers: [MockNgRedux]
     })
       .compileComponents();
   });

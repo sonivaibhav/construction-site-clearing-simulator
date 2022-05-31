@@ -1,3 +1,5 @@
+import {MockNgRedux, NgReduxTestingModule} from '@angular-redux/store/testing';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 
@@ -10,7 +12,9 @@ describe('SiteSimulatorComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SiteSimulatorComponent],
-      imports: [RouterTestingModule]
+      imports: [RouterTestingModule, NgReduxTestingModule],
+      providers: [MockNgRedux],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
   });
