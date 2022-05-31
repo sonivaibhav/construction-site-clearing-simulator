@@ -1,3 +1,4 @@
+import {MockNgRedux, NgReduxTestingModule} from '@angular-redux/store/testing';
 import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ToastrModule, ToastrService} from 'ngx-toastr';
@@ -11,8 +12,8 @@ describe('UploadFileComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [UploadFileComponent],
-      imports: [RouterTestingModule, ToastrModule.forRoot()],
-      providers: [ToastrService]
+      imports: [RouterTestingModule, NgReduxTestingModule, ToastrModule.forRoot()],
+      providers: [ToastrService, MockNgRedux]
     })
       .compileComponents();
   });
